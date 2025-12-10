@@ -59,7 +59,7 @@
           "label": "Footer Secondary Text",
           "placeholder": "",
           "allowTargetBlank": true,
-          "multi": "heading3,strong,em,hyperlink,list-item,paragraph"
+          "multi": "paragraph,heading3,strong,em,hyperlink,list-item"
         }
       }
     }

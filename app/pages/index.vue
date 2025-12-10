@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { components } from '~/slices'
+import { components } from '~/slices';
 
-const prismic = usePrismic()
+const prismic = usePrismic();
 const { data: page } = await useAsyncData('index', () =>
   prismic.client.getByUID('page', 'home')
-)
+);
 
 useHead({
-  title: prismic.asText(page.value?.data.title)
-})
+  title: prismic.asText(page.value?.data.title),
+});
 </script>
-
 
 <template>
   <SliceZone

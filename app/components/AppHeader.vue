@@ -1,0 +1,43 @@
+<script lang="ts" setup>
+import type { Content } from '@prismicio/client';
+import BrandSignature from './BrandSignature.vue';
+defineProps<{
+  settings?: Content.SettingsDocument;
+}>();
+</script>
+
+<template>
+  <header>
+    <nav class="flex justify-between">
+      <NuxtLink to="/" class="cta py-mx ml-4">
+        <BrandSignature class="text-lg" />
+      </NuxtLink>
+      <ul
+        class="flex items-center pl-8 pr-4 backdrop-blur xl:w-[calc(40%+2rem)]"
+      >
+        <li
+          v-for="link in settings?.data.navigation"
+          :key="link.key"
+          class="hidden xl:block"
+        >
+          <PrismicLink :field="link" class="cta" />
+        </li>
+        <li class="ml-auto">
+          <NuxtLink to="/#cart"> Cart (0) </NuxtLink>
+        </li>
+      </ul>
+    </nav>
+  </header>
+</template>
+
+<style scoped>
+@reference "@/assets/css/index.css";
+
+a {
+  @apply transition-opacity duration-300 ease-in-out;
+}
+
+header:has(a:hover) a:not(:hover) {
+  @apply opacity-25;
+}
+</style>

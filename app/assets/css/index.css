@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+  --font-mono--font-feature-settings: 'ss09' on;
+  --color-green: #00e67b;
+  --color-white: #dcd8d3;
+}
+html {
+  @apply bg-white scroll-smooth;
+}
+.cta {
+  @apply leading-tight p-4 inline-block hover:underline focus:outline-none focus-visible:bg-black focus-visible:text-white;
+}
+
+body {
+  @apply font-mono text-sm;
+}
+
+.bounded {
+  @apply mx-auto xl:mr-0 max-w-[60ch] xl:max-w-2/5 px-8 xl:px-4 py-16;
+}
+
+.rich-text {
+  & > h1 {
+    @apply font-sans font-bold leading-none text-[max(3rem,5vw)];
+  }
+  & > h2 {
+    @apply font-sans font-bold leading-none text-[max(1.875rem,2.5vw)];
+  }
+
+  & > h3 {
+    @apply font-sans font-bold leading-none text-[max(1.25rem,1.25vw)];
+
+    &:not(:first-child) {
+      @apply mt-16;
+    }
+  }
+
+  & > p,
+  & > ul,
+  & > ul > li {
+    @apply max-w-[40ch] hyphens-auto;
+    &:not(:first-child) {
+      @apply mt-4;
+    }
+  }
+  & > p,
+  & li {
+    & > a {
+      @apply underline focus:outline-none focus:bg-black focus:text-white;
+    }
+  }
+}

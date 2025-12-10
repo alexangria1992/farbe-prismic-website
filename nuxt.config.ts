@@ -1,4 +1,4 @@
-import { repositoryName, apiEndpoint } from './slicemachine.config.json';
+import { repositoryName } from './slicemachine.config.json';
 import tailwindcss from '@tailwindcss/vite';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -38,7 +38,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ['@/assets/styles/index.css'],
+  css: ['@/assets/css/index.css'],
 
   vite: {
     plugins: [tailwindcss()],
@@ -47,7 +47,7 @@ export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@nuxtjs/prismic'],
 
   prismic: {
-    endpoint: apiEndpoint || repositoryName,
+    endpoint: repositoryName,
     preview: '/api/preview',
     clientConfig: {
       routes: [
