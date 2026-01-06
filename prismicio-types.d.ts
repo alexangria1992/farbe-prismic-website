@@ -76,17 +76,6 @@ type PageDocumentDataSlicesSlice = RichTextSlice;
  */
 interface PageDocumentData {
   /**
-   * Title field in *Page*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: page.title
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  title: prismic.RichTextField;
-
-  /**
    * Slice Zone field in *Page*
    *
    * - **Field Type**: Slice Zone
@@ -95,7 +84,38 @@ interface PageDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<PageDocumentDataSlicesSlice>;
+  slices: prismic.SliceZone<PageDocumentDataSlicesSlice>; /**
+   * Meta Title field in *Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Page*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
 }
 
 /**
@@ -204,14 +224,42 @@ export type AllDocumentTypes = PageDocument | SettingsDocument;
  */
 export interface RichTextSliceDefaultPrimary {
   /**
-   * Content field in *RichText → Default → Primary*
+   * Title field in *RichText → Default → Primary*
    *
    * - **Field Type**: Rich Text
-   * - **Placeholder**: Lorem ipsum...
-   * - **API ID Path**: rich_text.default.primary.content
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.title
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
-  content: prismic.RichTextField;
+  title: prismic.RichTextField;
+
+  /**
+   * Text field in *RichText → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text: prismic.RichTextField;
+
+  /**
+   * CTAs field in *RichText → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.ctas
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  ctas: prismic.Repeatable<
+    prismic.LinkField<
+      string,
+      string,
+      unknown,
+      prismic.FieldState,
+      "Transparent" | "Primary" | "Outlined"
+    >
+  >;
 }
 
 /**
@@ -228,9 +276,65 @@ export type RichTextSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *RichText → Fullscreen → Primary*
+ */
+export interface RichTextSliceFullscreenPrimary {
+  /**
+   * Title field in *RichText → Fullscreen → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.fullscreen.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Text field in *RichText → Fullscreen → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.fullscreen.primary.text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text: prismic.RichTextField;
+
+  /**
+   * CTAs field in *RichText → Fullscreen → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.fullscreen.primary.ctas
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  ctas: prismic.Repeatable<
+    prismic.LinkField<
+      string,
+      string,
+      unknown,
+      prismic.FieldState,
+      "Transparent" | "Primary" | "Outlined"
+    >
+  >;
+}
+
+/**
+ * Fullscreen variation for RichText Slice
+ *
+ * - **API ID**: `fullscreen`
+ * - **Description**: RichText
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type RichTextSliceFullscreen = prismic.SharedSliceVariation<
+  "fullscreen",
+  Simplify<RichTextSliceFullscreenPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *RichText*
  */
-type RichTextSliceVariation = RichTextSliceDefault;
+type RichTextSliceVariation = RichTextSliceDefault | RichTextSliceFullscreen;
 
 /**
  * RichText Shared Slice
@@ -273,8 +377,10 @@ declare module "@prismicio/client" {
       AllDocumentTypes,
       RichTextSlice,
       RichTextSliceDefaultPrimary,
+      RichTextSliceFullscreenPrimary,
       RichTextSliceVariation,
       RichTextSliceDefault,
+      RichTextSliceFullscreen,
     };
   }
 }

@@ -12,6 +12,22 @@ html {
 }
 .cta {
   @apply leading-tight p-4 inline-block hover:underline focus:outline-none focus-visible:bg-black focus-visible:text-white;
+
+  &.primary {
+    @apply bg-green focus-visible:bg-black;
+  }
+
+  &.inverted {
+    @apply bg-black text-white focus-visible:bg-transparent focus-visible:text-black;
+  }
+
+  &.muted {
+    @apply opacity-25 hover:opacity-100 focus-visible:opacity-100;
+  }
+
+  &.outlined {
+    @apply border-[1.5px] border-black;
+  }
 }
 
 body {
