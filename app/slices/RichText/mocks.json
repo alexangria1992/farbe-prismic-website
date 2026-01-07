@@ -71,8 +71,10 @@
 					{
 						"type": "heading1",
 						"content": {
-							"text": "Because"
-						}
+							"text": "Introducing Farbe 800",
+							"spans": []
+						},
+						"direction": "ltr"
 					}
 				]
 			},
@@ -82,8 +84,10 @@
 					{
 						"type": "paragraph",
 						"content": {
-							"text": "Sit laborum deserunt eiusmod eiusmod adipisicing est labore dolore tempor ut enim voluptate do ex. Et irure nostrud fugiat ex excepteur amet veniam enim veniam veniam culpa est dolore eu labore."
-						}
+							"text": "Embrace night photography with our new emulsion for fine-grained, 800 speed, interior and evening photography.",
+							"spans": []
+						},
+						"direction": "ltr"
 					}
 				]
 			},
@@ -92,13 +96,23 @@
 				"type": "Link",
 				"value": [
 					{
-						"key": "c496260c-313a-484b-b596-4536905efaad",
 						"__TYPE__": "LinkContent",
+						"key": "c496260c-313a-484b-b596-4536905efaad",
 						"value": {
 							"__TYPE__": "ExternalLink",
 							"url": "https://prismic.io",
-							"text": "electric",
-							"variant": "Outlined"
+							"text": "Shop 800",
+							"variant": "Primary"
+						}
+					},
+					{
+						"__TYPE__": "LinkContent",
+						"key": "01302be8-994c-4e46-8d5d-a6c1103e13bf",
+						"value": {
+							"__TYPE__": "ExternalLink",
+							"url": "https://google.com",
+							"text": "Discover Farbe",
+							"variant": "Transparent"
 						}
 					}
 				]
