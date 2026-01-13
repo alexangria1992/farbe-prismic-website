@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { Content } from '@prismicio/client';
 import BrandSignature from './BrandSignature.vue';
+import SlideIn from './SlideIn.vue';
 defineProps<{
   settings?: Content.SettingsDocument;
 }>();
@@ -30,13 +31,13 @@ defineProps<{
         </defs>
       </svg>
     </figure>
-    <section
+    <SlideIn
       class="bounded rich-text min-h-screen flex flex-col mix-blend-difference"
     >
       <h2 class="m-0"><BrandSignature /></h2>
       <PrismicRichText :field="settings?.data.footertext" />
       <hr class="flex-1 border-none" />
       <PrismicRichText :field="settings?.data.footer_secondary_text" />
-    </section>
+    </SlideIn>
   </footer>
 </template>
