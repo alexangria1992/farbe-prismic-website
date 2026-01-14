@@ -2,29 +2,29 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 
-defineProps<{ as?: string }>()
+defineProps<{ as?: string }>();
 
-const $this = shallowRef<HTMLElement>()
+const $this = shallowRef<HTMLElement>();
 
 useGSAP((isReducedMotion) => {
-  if (!$this.value) return
-  gsap.registerPlugin(ScrollTrigger)
+  if (!$this.value) return;
+  gsap.registerPlugin(ScrollTrigger);
 
-  gsap.set($this.value, { opacity: 1 })
-  
+  gsap.set($this.value, { opacity: 1 });
+
   gsap.from($this.value.children, {
     opacity: 0,
     y: 50,
     delay: 0.3,
     duration: 1,
-    ease: "power2.out",
+    ease: 'power2.out',
     stagger: 0.2,
     scrollTrigger: {
       trigger: $this.value,
-      start: "top bottom-=25%",
+      start: 'top bottom-=25%',
     },
-  })
-})
+  });
+});
 </script>
 <template>
   <component :is="as || 'section'" ref="$this">
