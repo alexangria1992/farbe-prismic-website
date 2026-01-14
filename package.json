@@ -20,6 +20,7 @@
     "@nuxtjs/prismic": "^4.1.0",
     "@slicemachine/adapter-nuxt": "^0.3.89",
     "@tailwindcss/vite": "^4.1.17",
+    "@unlok-co/nuxt-stripe": "^6.0.2",
     "concurrently": "^9.2.1",
     "eslint": "^9.36.0",
     "nuxt": "^4.1.2",

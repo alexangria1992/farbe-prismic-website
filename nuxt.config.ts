@@ -44,7 +44,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
-  modules: ['@nuxt/eslint', '@nuxtjs/prismic'],
+  modules: ['@nuxt/eslint', '@nuxtjs/prismic', '@unlok-co/nuxt-stripe'],
 
   prismic: {
     endpoint: repositoryName,
