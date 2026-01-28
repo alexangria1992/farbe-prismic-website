@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const prismic = usePrismic();
 const { data: settings } = await useAsyncData('settings', () =>
-  prismic.client.getSingle('settings')
+  prismic.client.getSingle('settings'),
 );
 
 useSeoMeta({

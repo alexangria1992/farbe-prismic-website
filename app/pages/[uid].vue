@@ -6,6 +6,8 @@ const { data: page } = await useAsyncData(`[page-uid-home]`, () =>
   prismic.client.getByUID('page', 'home')
 );
 
+const { data: stripeProducts } = await useFetch('/api/products');
+
 useSeoMeta({
   title: page.value?.data.meta_title,
   ogTitle: page.value?.data.meta_title,
@@ -20,5 +22,6 @@ useSeoMeta({
     wrapper="main"
     :slices="page?.data.slices ?? []"
     :components="components"
+    :context="{ stripeProducts }"
   />
 </template>

@@ -2,12 +2,18 @@
 import { components } from '~/slices';
 
 const prismic = usePrismic();
-const { data: page } = await useAsyncData('index', () =>
+const { data: page } = await useAsyncData(`[page-uid-home]`, () =>
   prismic.client.getByUID('page', 'home')
 );
 
-useHead({
-  title: prismic.asText(page.value?.data.title),
+const { data: stripeProducts } = await useFetch('/api/products');
+
+useSeoMeta({
+  title: page.value?.data.meta_title,
+  ogTitle: page.value?.data.meta_title,
+  description: page.value?.data.meta_description,
+  ogDescription: page.value?.data.meta_description,
+  ogImage: computed(() => prismic.asImageSrc(page.value?.data.meta_image)),
 });
 </script>
 
@@ -16,5 +22,6 @@ useHead({
     wrapper="main"
     :slices="page?.data.slices ?? []"
     :components="components"
+    :context="{ stripeProducts }"
   />
 </template>

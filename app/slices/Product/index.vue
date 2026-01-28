@@ -8,12 +8,12 @@ import DescriptionTerm from './DescriptionTerm.vue';
 import DescriptionDetails from './DescriptionDetails.vue';
 
 const props = defineProps(
-  getSliceComponentProps<Content.ProductSlice>([
-    'slice',
-    'index',
-    'slices',
-    'context',
-  ])
+  getSliceComponentProps<
+    Content.ProductSlice,
+    {
+      stripeProducts: Record<string, StripeProduct>;
+    }
+  >(),
 );
 const prismic = usePrismic();
 const product = computed(() => {
@@ -25,9 +25,16 @@ const product = computed(() => {
   ) {
     return undefined;
   }
+  const stripeProduct =
+    props.context.stripeProducts[prismicProduct.data?.stripe_id];
+
+  if (!stripeProduct) {
+    return undefined;
+  }
 
   return {
     ...prismicProduct,
+    stripeProduct,
   };
 });
 
@@ -51,8 +58,11 @@ function onSubmit(event: Event) {
   >
     <header :id="product.uid" class="rich-text pt-[25vh]">
       <PrismicRichText :field="product.data?.name" />
-      <p aria-label="Price">TODO / roll</p>
+      <p aria-label="Price">
+        {{ formatPrice(product.stripeProduct.price.amount) }} / roll
+      </p>
     </header>
+    =
     <section class="rich-text">
       <h3 class="sr-only">Description</h3>
       <PrismicRichText :field="product.data?.description" />
