@@ -10,7 +10,8 @@ defineProps(getSliceComponentProps<Content.CartSlice>());
     as="from"
     class="bounded rich-text min-h-screen flex flex-col"
     method="POST"                                                   
-    action="/api/"          
-  >             
+    action="/api/checkout"          
+  >     
+          <PrismicRichText>
   </SlideIn>
 </template>
