@@ -4,6 +4,8 @@ import BrandSignature from './BrandSignature.vue';
 defineProps<{
   settings?: Content.SettingsDocument;
 }>();
+
+const { totalItems } = useCart();
 </script>
 
 <template>
@@ -23,7 +25,10 @@ defineProps<{
           <PrismicLink :field="link" class="cta" />
         </li>
         <li class="ml-auto">
-          <NuxtLink to="/#cart"> Cart (0) </NuxtLink>
+          <NuxtLink to="/#cart">
+            Cart (<ClientOnly fallback="~">{{ totalItems }}</ClientOnly
+            >)
+          </NuxtLink>
         </li>
       </ul>
     </nav>

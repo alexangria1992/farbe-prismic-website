@@ -38,6 +38,8 @@ const product = computed(() => {
   };
 });
 
+const { items, upsertItem } = useCart();
+
 const quantity = ref(1);
 function setQuantity(value: number) {
   quantity.value = Math.max(1, value);
@@ -45,7 +47,17 @@ function setQuantity(value: number) {
 
 function onSubmit(event: Event) {
   event.preventDefault();
-  window.alert('onSubmit');
+  if (!product.value) {
+    return;
+  }
+  const maybeCartQuantity =
+    items.value[product.value.stripeProduct.id]?.quantity ?? 0;
+
+  upsertItem({
+    product: product.value.stripeProduct,
+    quantity: maybeCartQuantity + quantity.value,
+    name: prismic.asText(product.value.data?.name) ?? '',
+  });
   setQuantity(1);
 }
 </script>
@@ -95,10 +107,20 @@ function onSubmit(event: Event) {
       </div>
       <div class="flex-1">
         <button class="w-full cta primary" type="submit">Add to cart</button>
+        <ClientOnly>
+          <p
+            class="text-center"
+            :class="{ invisible: !items[product.stripeProduct.id]?.quantity }"
+          >
+            <NuxtLink to="/#cart" class="cta muted">
+              {{ items[product.stripeProduct.id]?.quantity }} in cart
+            </NuxtLink>
+          </p>
+        </ClientOnly>
       </div>
     </form>
   </SlideIn>
   <SlideIn>
-    <p>No product found</p>
+    <!-- <p>No product found</p> -->
   </SlideIn>
 </template>

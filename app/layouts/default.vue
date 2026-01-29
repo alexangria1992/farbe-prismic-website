@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const prismic = usePrismic();
+const route = useRoute();
 const { data: settings } = await useAsyncData('settings', () =>
   prismic.client.getSingle('settings'),
 );
@@ -10,6 +11,13 @@ useSeoMeta({
   description: settings.value?.data.meta_description,
   ogDescription: settings.value?.data.meta_description,
   ogImage: () => prismic.asImageSrc(settings.value?.data.meta_image),
+});
+
+onMounted(() => {
+  if (route.query.order === 'completed') {
+    useCart().clear();
+    useRouter().replace({ path: route.path });
+  }
 });
 </script>
 
