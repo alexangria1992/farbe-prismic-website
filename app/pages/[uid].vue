@@ -2,8 +2,10 @@
 import { components } from '~/slices';
 
 const prismic = usePrismic();
-const { data: page } = await useAsyncData(`[page-uid-home]`, () =>
-  prismic.client.getByUID('page', 'home')
+const route = useRoute();
+const { data: page } = await useAsyncData(
+  `[page-uid-${route.params.uid}]`,
+  () => prismic.client.getByUID('page', route.params.uid as string),
 );
 
 const { data: stripeProducts } = await useFetch('/api/products');
