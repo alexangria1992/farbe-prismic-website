@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OrbitControls } from '@tresjs/cientos';
+import { SRGBColorSpace, ACESFilmicToneMapping } from 'three';
 const mounted = ref(false);
 
 onMounted(() => {
@@ -12,17 +12,19 @@ onMounted(() => {
     class="transition-opacity delay-300 duration-1000 ease-in-out"
     :class="{ 'opacity-0': !mounted }"
   >
-    <TresCanvas>
+    <TresCanvas
+      :shadows="true"
+      :output-color-space="SRGBColorSpace"
+      :tone-mapping="ACESFilmicToneMapping"
+      :tone-mapping-exposure="3"
+    >
       <OrbitControls />
       <TresPerspectiveCamera
         :fov="45"
         :position="[0, 0, 20]"
         :look-at="[0, 0, 0]"
       />
-      <TresMesh>
-        <TresTorusGeometry :args="[1, 0.5, 16, 32]" />
-        <TresMeshBasicMaterial color="orange" />
-      </TresMesh>
+      <slot />
     </TresCanvas>
   </figure>
 </template>
