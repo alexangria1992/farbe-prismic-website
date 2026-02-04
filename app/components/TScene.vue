@@ -1,12 +1,40 @@
 <script lang="ts" setup>
+import type { Group } from 'three';
+
 /* eslint-disable vue/attribute-hyphenation */
+const activeModel = ref<string>('800');
+const $canister = ref<Group | null>();
+const $canisterInternal = ref<Group | null>();
+const $packaging = ref<Group | null>();
+
+useLoop().onBeforeRender(({ elapsed }) => {
+  if ($canisterInternal.value) {
+    $canisterInternal.value.rotation.y =
+      Math.PI / 4 - (Math.sin(elapsed * 0.25) * Math.PI) / 2;
+  }
+});
 </script>
 
 <template>
-  <TresMesh cast-shadow>
-    <TresTorusGeometry :args="[1, 0.5, 16, 32]" />
-    <TresMeshBasicMaterial color="orange" />
-  </TresMesh>
+  <TresGroup :position="[1.5, 2.5, 0]">
+    <Levioso>
+      <TresGroup ref="$canister">
+        <TresGroup ref="$canisterInternal">
+          <TFilmCanister :model="activeModel" :rotation="[0, 0, Math.PI / 8]" />
+        </TresGroup>
+      </TresGroup>
+    </Levioso>
+  </TresGroup>
+  <TresGroup :position="[-1.5, -2.5, 0]">
+    <Levioso>
+      <TresGroup ref="$packaging">
+        <TFilmPackaging
+          :model="activeModel"
+          :rotation="[-Math.PI / 2, 0, Math.PI / 3]"
+        />
+      </TresGroup>
+    </Levioso>
+  </TresGroup>
 
   <TresMesh receive-shadow :position="[0, 0, -4]">
     <TresPlaneGeometry :args="[400, 400, 10, 10]" />
